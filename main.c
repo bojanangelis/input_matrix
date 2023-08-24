@@ -1,8 +1,44 @@
 #include <stdio.h>
 
 int main() {
-    printf("Hello, World!\n");
-//    /Users/bojanangjeleski/CLionProjects/untitled141/input.txt
+    FILE *f = fopen("/Users/bojanangjeleski/CLionProjects/untitled141/input.txt", "r");
+
+    int m, n;
+    fscanf(f, "%d %d", &m, &n);
+
+    int i, j, k;
+    int matrix[100][100];
+    for (i = 0; i < m; i++) {
+        for (j = 0; j < n; j++) {
+            fscanf(f, "%d", &matrix[i][j]);
+        }
+    }
+
+    fclose(f);
+
+    for (i = 0; i < m; i++) {
+        for (j = 0; j < n; j++) {
+            int s1 = 0;
+            int s2 = 0;
+            // na desno
+            for (k = j; k < n; k++) {
+                s1 += matrix[i][k];
+            }
+            // na dole
+            for (k = i; k < m; k++) {
+                s2 += matrix[k][j];
+            }
+            matrix[i][j] = s1 > s2 ? s1 : s2;
+        }
+    }
+
+    for (i = 0; i < m; i++) {
+        for (j = 0; j < n; j++) {
+            printf("%d ", matrix[i][j]);
+        }
+        printf("\n");
+    }
+
     return 0;
 }
 
